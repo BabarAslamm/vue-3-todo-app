@@ -3,12 +3,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    
+
                     <!-- Add new Task -->
                     <NewTask  @added="handleAddedNewTask"/>
 
                     <!-- List Of Uncompleted Tasks -->
-                    <Tasks :tasks="uncompletedTasks" />
+                    <Tasks :tasks="uncompletedTasks"  @updated="handleUpdatedTask" />
 
                     <!-- Show/Hide completed tasks toggle button -->
                      <div class="text-center my-3" v-show="showToggleCompletedBtn">
@@ -19,7 +19,11 @@
                      </div>
 
                     <!-- List Of Completed Tasks -->
-                    <Tasks :tasks="completedTasks" :show="showCompletedTasks && completedTaskIsVisible" />
+                    <Tasks
+                        :tasks="completedTasks"
+                        :show="showCompletedTasks && completedTaskIsVisible"
+                        @updated="handleUpdatedTask"
+                    />
 
 
 
@@ -33,7 +37,7 @@
 
 <script setup>
     import { onMounted, ref, computed } from 'vue';
-    import { allTasks, createTask } from '../http/task-api';
+    import { allTasks, createTask, updateTask } from '../http/task-api';
     import Tasks from '@/components/tasks/Tasks.vue';
     import NewTask from '@/components/tasks/NewTask.vue';
 
@@ -66,6 +70,20 @@
 
       tasks.value.unshift(createdTask.data);
 
+    }
+
+    const handleUpdatedTask = async (task) => {
+
+      const {data : updatedTask } = await updateTask(task.id, {
+
+        name : task.name
+
+      })
+
+      const currentTask = tasks.value.find(item => item.id === task.id)
+
+      currentTask.name = updatedTask.data.name
+      
     }
 
 </script>
