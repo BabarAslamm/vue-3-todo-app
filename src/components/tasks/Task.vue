@@ -9,7 +9,7 @@
                 @dblclick="$event => isEdit = true"
                 >
                 <div class="relative" v-if="isEdit" >
-                    <input class="editable-task" type="text" v-focus  @keyup="$event => isEdit = false"/>
+                    <input class="editable-task" type="text" v-focus  @keyup.esc="$event => isEdit = false"/>
                   </div>
                   <span v-else>{{ task.name }}</span>
             </div>
