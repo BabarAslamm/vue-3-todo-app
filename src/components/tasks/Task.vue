@@ -1,7 +1,13 @@
 <template>
     <li class="list-group-item py-3">
         <div class="d-flex justify-content-start align-items-center">
-            <input class="form-check-input mt-0" :class="completedClass" :checked="task.is_completed"  type="checkbox" />
+            <input
+                class="form-check-input mt-0"
+                :class="completedClass"
+                :checked="task.is_completed"
+                type="checkbox"
+                @click="markTaskAsCompleted"
+            />
             <div
                 class="ms-2 flex-grow-1"
                 :class="completedClass"
@@ -32,7 +38,7 @@
 import { defineProps, computed, ref } from 'vue';
 import TaskActions from '@/components/tasks/TaskActions.vue'
 
-const emit = defineEmits(['updated']);
+const emit = defineEmits(['updated', 'completed']);
 
 const props = defineProps({
     task: {
@@ -65,6 +71,14 @@ const undo = () => {
     isEdit.value = false
 
     editingTask.value = props.task.name
+}
+
+const markTaskAsCompleted = event => {
+
+    const completedTask = { ...props.task, is_completed: !props.task.is_completed }
+
+    emit('completed', completedTask)
+
 }
 
 </script>
