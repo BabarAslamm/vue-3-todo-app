@@ -29,7 +29,7 @@
         </div>
 
         <!-- Task Actions -->
-        <TaskActions @edit="$event => isEdit = true" />
+        <TaskActions @edit="$event => isEdit = true" @remove="removeTask" />
 
     </li>
 </template>
@@ -38,7 +38,7 @@
 import { defineProps, computed, ref } from 'vue';
 import TaskActions from '@/components/tasks/TaskActions.vue'
 
-const emit = defineEmits(['updated', 'completed']);
+const emit = defineEmits(['updated', 'completed', 'remove']);
 
 const props = defineProps({
     task: {
@@ -78,6 +78,20 @@ const markTaskAsCompleted = event => {
     const completedTask = { ...props.task, is_completed: !props.task.is_completed }
 
     emit('completed', completedTask)
+
+}
+
+const removeTask = event => {
+
+    if(confirm('Are You Sure'))
+    {
+
+        const removedTask = { ...props.task }
+
+        emit('remove', removedTask)
+
+    }
+
 
 }
 

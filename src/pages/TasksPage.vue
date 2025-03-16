@@ -12,6 +12,7 @@
                         :tasks="uncompletedTasks"
                         @updated="handleUpdatedTask"
                         @completed="handleCompletedTask"
+                        @remove="handleRemovedTask"
                     />
 
                     <!-- Show/Hide completed tasks toggle button -->
@@ -28,6 +29,7 @@
                         :show="showCompletedTasks && completedTaskIsVisible"
                         @updated="handleUpdatedTask"
                         @completed="handleCompletedTask"
+                        @remove="handleRemovedTask"
                     />
 
 
@@ -42,7 +44,7 @@
 
 <script setup>
     import { onMounted, ref, computed } from 'vue';
-    import { allTasks, createTask, updateTask, completeTask } from '../http/task-api';
+    import { allTasks, createTask, updateTask, completeTask, deleteTask } from '../http/task-api';
     import Tasks from '@/components/tasks/Tasks.vue';
     import NewTask from '@/components/tasks/NewTask.vue';
 
@@ -98,6 +100,16 @@
 
         const currentTask = tasks.value.find(item => item.id === task.id)
         currentTask.is_completed = completedTask.data.is_completed
+
+    }
+
+    const handleRemovedTask = async (task) => {
+
+        await deleteTask(task.id);
+
+        const index = tasks.value.findIndex(item => item.id === task.id)
+
+        tasks.value.splice(index, 1)
 
     }
 
