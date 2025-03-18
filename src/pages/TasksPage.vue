@@ -47,6 +47,23 @@
     import { allTasks, createTask, updateTask, completeTask, deleteTask } from '../http/task-api';
     import Tasks from '@/components/tasks/Tasks.vue';
     import NewTask from '@/components/tasks/NewTask.vue';
+    import { useTaskStore } from '@/stores/task';
+    import { storeToRefs } from 'pinia';
+
+    const store = useTaskStore();
+
+   const  { task } = storeToRefs(store);
+
+    // store.task.name = "Task 1 updated"
+
+    // store.$patch({
+    //     task : {
+    //       id : '111',
+    //       name : 'Task 1111'
+    //     }
+    // })
+
+    // task.value.name = "Store to ref"
 
     const tasks = ref([]);
 
@@ -55,6 +72,8 @@
         const { data } = await allTasks();
 
         tasks.value = data.data;
+
+        console.log('store', task.value)
 
     });
 
