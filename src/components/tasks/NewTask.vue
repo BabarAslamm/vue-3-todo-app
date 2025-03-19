@@ -12,6 +12,10 @@
 <script setup>
 
 import { reactive, defineEmits } from 'vue';
+import { useTaskStore } from '@/stores/task';
+
+const store = useTaskStore();
+const { handleAddedNewTask } = store;
 
 const emit = defineEmits(['added']);
 
@@ -21,7 +25,7 @@ const newTask = reactive({
 })
 console.log('newTask', newTask)
 
-const addNewTask = event => {
+const addNewTask = async (event) => {
 
     if(event.target.value.trim()){
 
@@ -29,8 +33,8 @@ const addNewTask = event => {
 
         event.target.value = '';
 
-        emit('added', newTask);
-        
+        await handleAddedNewTask(newTask);
+
     }
 }
 
