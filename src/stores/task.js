@@ -7,7 +7,18 @@ export const useTaskStore = defineStore('taskStore', {
 
     state: () => ({
 
-        tasks: [],
+        tasks: [
+            {
+                id : '1',
+                name : 'Task 1 From Store',
+                is_completed : false
+            },
+            {
+                id : '2',
+                name : 'Task 2 From Store',
+                is_completed : true
+            }
+        ],
 
         task: {
             id : '1',
@@ -38,5 +49,5 @@ export const useTaskStore = defineStore('taskStore', {
 
         }
     }
-    
+
 })
