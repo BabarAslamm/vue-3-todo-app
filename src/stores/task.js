@@ -1,5 +1,6 @@
 import { completeTask } from "@/http/task-api";
 import { defineStore } from "pinia";
+import { allTasks } from '../http/task-api';
 
 
 export const useTaskStore = defineStore('taskStore', {
@@ -35,6 +36,18 @@ export const useTaskStore = defineStore('taskStore', {
 
            return this.tasks.filter(task => !task.is_completed)
         }
-        
+
+    },
+
+    actions: {
+
+       async fetchAllTasks () {
+
+            const { data } = await allTasks();
+
+            this.tasks = data.data;
+
+        }
     }
+
 })
