@@ -52,26 +52,15 @@
 
     const store = useTaskStore();
 
-   const  { task, completedTasks, uncompletedTasks } = storeToRefs(store);
+    const  { completedTasks, uncompletedTasks } = storeToRefs(store);
 
-    // store.task.name = "Task 1 updated"
-
-    // store.$patch({
-    //     task : {
-    //       id : '111',
-    //       name : 'Task 1111'
-    //     }
-    // })
-
-    // task.value.name = "Store to ref"
+    const { fetchAllTasks } = store
 
     const tasks = ref([]);
 
     onMounted( async () => {
 
-        const { data } = await allTasks();
-
-        tasks.value = data.data;
+        await fetchAllTasks();
 
     });
 
