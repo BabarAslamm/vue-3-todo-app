@@ -52,7 +52,7 @@
 
     const store = useTaskStore();
 
-   const  { task } = storeToRefs(store);
+   const  { task, completedTasks, uncompletedTasks } = storeToRefs(store);
 
     // store.task.name = "Task 1 updated"
 
@@ -73,12 +73,7 @@
 
         tasks.value = data.data;
 
-        console.log('store', task.value)
-
     });
-
-    const completedTasks = computed(() => tasks.value.filter(task => task.is_completed))
-    const uncompletedTasks = computed(() => tasks.value.filter(task => !task.is_completed))
 
     const showToggleCompletedBtn = computed(
         () => completedTasks.value.length > 0 && uncompletedTasks.value.length > 0
