@@ -1,53 +1,34 @@
-import { completeTask } from "@/http/task-api";
 import { defineStore } from "pinia";
 import { allTasks } from '../http/task-api';
+import { computed, ref, reactive } from "vue";
 
 
-export const useTaskStore = defineStore('taskStore', {
+export const useTaskStore = defineStore('taskStore', () => {
 
-    state: () => ({
+    const tasks = ref([]);
 
-        tasks: [
-            {
-                id : '1',
-                name : 'Task 1 From Store',
-                is_completed : false
-            },
-            {
-                id : '2',
-                name : 'Task 2 From Store',
-                is_completed : true
-            }
-        ],
+    const task = reactive({
+        id: null,
+        name: null,
+        is_completed: null
+    })
 
-        task: {
-            id : '1',
-            name : 'Task 1 From Store',
-            is_completed : false
-        }
+    const completedTasks = computed(() => tasks.value.filter(task => task.is_completed))
 
-    }),
+    const uncompletedTasks = computed(() => tasks.value.filter(task => !task.is_completed))
 
-    getters: {
+    const fetchAllTasks = async () => {
 
-        completedTasks: (state) => state.tasks.filter(task => task.is_completed),
+        const { data } = await allTasks();
 
-        uncompletedTasks(){
+        tasks.value = data.data;
 
-           return this.tasks.filter(task => !task.is_completed)
-        }
-
-    },
-
-    actions: {
-
-       async fetchAllTasks () {
-
-            const { data } = await allTasks();
-
-            this.tasks = data.data;
-
-        }
     }
+
+   return {
+
+        task, tasks, completedTasks, uncompletedTasks, fetchAllTasks
+
+   }
 
 })
