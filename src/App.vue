@@ -6,10 +6,10 @@ import TasksPage from './pages/TasksPage.vue';
 </script>
 
 <template>
-    
+
   <Navbar />
 
-  <TasksPage />
+  <router-view />
 
   <Footer />
 
