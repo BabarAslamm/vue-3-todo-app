@@ -20,7 +20,7 @@ import Tasks from './tasks/Tasks.vue';
                         <router-link :to="{name: 'tasks' }" class="nav-link">Tasks</router-link>
                     </li>
                     <li class="nav-item">
-                        <a href="summaries.html" class="nav-link">Summary</a>
+                        <router-link :to="{ name: 'summary' }" class="nav-link">Summary</router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
