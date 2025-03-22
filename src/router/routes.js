@@ -18,7 +18,10 @@ const routes = [
     {
         path: '/tasks',
         component: TasksPage,
-        name: 'tasks'
+        name: 'tasks',
+        meta: {
+            auth : true
+        }
     },
     {
         path: '/summary',
