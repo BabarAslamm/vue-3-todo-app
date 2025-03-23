@@ -23,7 +23,6 @@ const newTask = reactive({
     'name' : '',
     'is_completed' : false
 })
-console.log('newTask', newTask)
 
 const addNewTask = async (event) => {
 

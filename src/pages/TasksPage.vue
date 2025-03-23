@@ -55,10 +55,6 @@
 
         await fetchAllTasks();
 
-        // console.log('Tasks:', store.tasks);
-        console.log('Completed Tasks:', completedTasks.value);
-        console.log('Uncompleted Tasks:', uncompletedTasks.value);
-
     });
 
     const showToggleCompletedBtn = computed(
