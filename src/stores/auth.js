@@ -21,9 +21,6 @@ export const useAuthStore = defineStore('authStore', () => {
             // Store token in localStorage or sessionStorage
             localStorage.setItem('auth_token', data.token);
 
-            // Set default Axios Authorization header
-            axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-
         } catch (error) {
 
             console.error("Login failed:", error);
