@@ -32,8 +32,8 @@ const store = useAuthStore();
 
 
 const form = reactive({
-    email : '',
-    password : ''
+    email : 'test@test.com',
+    password : 'password'
 })
 
 const handleSubmit = async () => {
