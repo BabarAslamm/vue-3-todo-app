@@ -30,7 +30,13 @@
                 </div>
             </div>
 
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="isLoading">
+                <span v-if="!isLoading">Sign in</span>
+                <span v-else>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Signing in...
+                </span>
+            </button>
         </form>
     </main>
 </template>
@@ -46,6 +52,7 @@ const store = useAuthStore();
 
 const errorMessage = ref('');
 const errors = ref({});
+const isLoading = ref(false);
 
 
 const form = reactive({
@@ -57,6 +64,7 @@ const handleSubmit = async() => {
 
     errorMessage.value = '';
     errors.value = '';
+    isLoading.value = true;
 
     try {
 
@@ -77,7 +85,9 @@ const handleSubmit = async() => {
         }else {
             errorMessage.value = 'Network error or server is unreachable';
         }
-        
+
+    } finally {
+        isLoading.value = false;
     }
 }
 
