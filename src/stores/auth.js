@@ -10,14 +10,32 @@ export const useAuthStore = defineStore('authStore', () => {
     const token = ref(localStorage.getItem('auth_token') || null);
 
     const isLoggedIn = computed(() => !!token.value);
-
+    
     const handleLogin = async (credentials) => {
-      const { data } = await login(credentials);
-      user.value = data.user;
-      token.value = data.token;
-      localStorage.setItem('auth_token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-    };
+
+        try{
+
+            const { data } = await login(credentials);
+
+            user.value = data.user;
+
+            token.value = data.token;
+
+            localStorage.setItem('auth_token', data.token)
+
+            localStorage.setItem('user', JSON.stringify(data.user))
+
+            return data;
+
+
+        }catch (error) {
+
+            throw error
+
+        }
+
+
+    }
 
     const handleLogout = () => {
       user.value = null;
