@@ -12,7 +12,6 @@
                 {{ errorMessage }}
             </div>
 
-            {{ form }}
             <div class="form-floating mb-2">
                 <input type="email" v-model="form.email" class="form-control" :class="{ 'is-invalid': errors.email }" id="email" placeholder="name@example.com" />
                 <label for="email">Email</label>

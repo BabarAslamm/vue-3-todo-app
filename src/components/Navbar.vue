@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import Tasks from './tasks/Tasks.vue';
-
-</script>
-
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container py-2">
@@ -31,10 +26,27 @@ import Tasks from './tasks/Tasks.vue';
                         <router-link :to="{ name: 'register' }" class="btn btn-danger ms-2">Register</router-link>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="btn btn-outline-secondary ms-2">Logout</a>
+                        <button type="button" @click="logout" class="btn btn-outline-secondary ms-2">Logout</button>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+
+const router = useRouter();
+const store = useAuthStore();
+
+const logout = async () => {
+    try {
+        await store.handleLogout();
+        router.push({ name: 'login' });
+    } catch (error) {
+        console.error('Logout failed:', error);
+    }
+};
+</script>
