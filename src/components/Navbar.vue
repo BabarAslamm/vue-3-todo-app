@@ -19,15 +19,23 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <router-link :to="{ name: 'login' }" class="btn btn-outline-secondary ms-2">Login</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link :to="{ name: 'register' }" class="btn btn-danger ms-2">Register</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" @click="logout" class="btn btn-outline-secondary ms-2">Logout</button>
-                    </li>
+
+                    <template v-if="!isLoggedIn">
+                        <li class="nav-item">
+                            <router-link :to="{ name: 'login' }" class="btn btn-outline-secondary ms-2">Login</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link :to="{ name: 'register' }" class="btn btn-danger ms-2">Register</router-link>
+                        </li>
+                    </template>
+                    <template v-else>
+                        <li class="nav-item">
+                            <span class="nav-link text-muted">Welcome, {{ user.name }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" @click="logout" class="btn btn-outline-secondary ms-2">Logout</button>
+                        </li>
+                    </template>
                 </ul>
             </div>
         </div>
@@ -37,9 +45,12 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
 
 const router = useRouter();
 const store = useAuthStore();
+
+const { user, isLoggedIn } = storeToRefs(store);
 
 const logout = async () => {
     try {
