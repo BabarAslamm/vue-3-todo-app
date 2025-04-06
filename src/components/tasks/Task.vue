@@ -23,7 +23,7 @@
                         v-model="editingTask"
                     />
                   </div>
-                  <span v-else> {{task.id }} {{ task.name }}</span>
+                  <span v-else> {{ task.name }}</span>
             </div>
             <!-- <div class="task-date">24 Feb 12:00</div> -->
         </div>
