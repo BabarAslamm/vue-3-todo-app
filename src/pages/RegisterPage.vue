@@ -13,7 +13,7 @@
             </div>
 
             <div class="form-floating mb-2">
-                <input type="email" v-model="form.name" class="form-control" :class="{ 'is-invalid': errors.name }" id="name" placeholder="Your Name" />
+                <input type="text" v-model="form.name" class="form-control" :class="{ 'is-invalid': errors.name }" id="name" placeholder="Your Name" />
                 <label for="email">Name</label>
                  <!-- Display email errors -->
                  <div v-if="errors.name" class="invalid-feedback">
